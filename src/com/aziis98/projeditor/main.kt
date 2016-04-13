@@ -22,7 +22,7 @@ class Main : CanvasApp() {
 
         boxDocument = parseXML(doc)
 
-        println(boxDocument.root.toString())
+        // println(boxDocument.root.toString())
     }
 
     override fun render(g: Graphics2D) {

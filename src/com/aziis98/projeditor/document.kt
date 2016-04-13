@@ -103,7 +103,12 @@ class Box(val tagName: String, val parent: Box? = null) {
         var margin = java.lang.Float.parseFloat(attributes.get("margin", "0"))
 
         if (parent == null) {
-            when()
+
+            attributes["*width"] = PROJEDITOR.windowWidth - 2 * margin
+            attributes["*height"] = PROJEDITOR.windowHeight - 2 * margin
+
+            attributes["*x"] = 0 + margin
+            attributes["*y"] = 0 + margin
 
             return
         }
@@ -111,35 +116,21 @@ class Box(val tagName: String, val parent: Box? = null) {
         when (parent.attributes.get("layout", "horizontal")) {
 
             "horizontal" -> {
-                if (parent == null) {
-                    attributes["*width"] = PROJEDITOR.windowWidth - 2 * margin
-                    attributes["*height"] = PROJEDITOR.windowHeight - 2 * margin
+                attributes["*width"] = parent.attributes.get("*width", 0) / parent.children.size - margin * 2
+                attributes["*height"] = attributes.get<Int?>("height") ?: parent.attributes.get("*height", 0) - margin * 2
 
-                    attributes["*x"] = 0 + margin
-                    attributes["*y"] = 0 + margin
-                } else {
-                    attributes["*width"] = parent.attributes.get("*width", 0) / parent.children.size - margin * 2
-                    attributes["*height"] = parent.attributes.get("*height", 0) - margin * 2
+                println(attributes.get<Int>("height"))
 
-                    attributes["*x"] = parent.children.indexOf(this) * (parent.attributes.get("*width", 0) / parent.children.size) + margin
-                    attributes["*y"] = 0 + margin
-                }
+                attributes["*x"] = parent.attributes.get("*x", 0) + parent.children.indexOf(this) * (parent.attributes.get("*width", 0) / parent.children.size) + margin
+                attributes["*y"] = parent.attributes.get("*y", 0) + 0 + margin
             }
 
             "vertical" -> {
-                if (parent == null) {
-                    attributes["*width"] = PROJEDITOR.windowWidth - 2 * margin
-                    attributes["*height"] = PROJEDITOR.windowHeight - 2 * margin
+                attributes["*width"] = parent.attributes.get("*width", 0) / parent.children.size - 2 * margin
+                attributes["*height"] = parent.attributes.get("*height", 0) - 2 * margin
 
-                    attributes["*x"] = 0 + margin
-                    attributes["*y"] = 0 + margin
-                } else {
-                    attributes["*width"] = parent.attributes.get("*width", 0) / parent.children.size - 2 * margin
-                    attributes["*height"] = parent.attributes.get("*height", 0) - 2 * margin
-
-                    attributes["*x"] = 0 + margin
-                    attributes["*y"] = parent.children.indexOf(this) * (parent.attributes.get("*height", 0) / parent.children.size) + margin
-                }
+                attributes["*x"] = parent.attributes.get("*x", 0) + 0 + margin
+                attributes["*y"] = parent.attributes.get("*y", 0) + parent.children.indexOf(this) * (parent.attributes.get("*height", 0) / parent.children.size) + margin
             }
 
         }

@@ -12,6 +12,8 @@ class PropertyMap {
 
     fun <T> get(name: String, def: T): T = (map[name] as T) ?: def
 
+    operator fun <T> get(name: String) : T? = map[name] as T?
+
     operator fun set(name: String, value: Any) {
         map[name] = value
     }
