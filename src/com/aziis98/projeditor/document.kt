@@ -126,8 +126,8 @@ class Box(val tagName: String, val parent: Box? = null) {
             }
 
             "vertical" -> {
-                attributes["*width"] = parent.attributes.get("*width", 0) / parent.children.size - 2 * margin
-                attributes["*height"] = parent.attributes.get("*height", 0) - 2 * margin
+                attributes["*width"] = attributes.get<Int?>("width") ?: parent.attributes.get("*width", 0) - 2 * margin
+                attributes["*height"] = parent.attributes.get("*height", 0) / parent.children.size - 2 * margin
 
                 attributes["*x"] = parent.attributes.get("*x", 0) + 0 + margin
                 attributes["*y"] = parent.attributes.get("*y", 0) + parent.children.indexOf(this) * (parent.attributes.get("*height", 0) / parent.children.size) + margin

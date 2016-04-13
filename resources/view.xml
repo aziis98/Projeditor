@@ -1,5 +1,13 @@
 <window width="1280" height="720" margin="10">
 
+    <test layout="horizontal" margin="10" padding="10">
+        <test></test>
+        <test></test>
+        <test></test>
+        <test></test>
+        <test></test>
+    </test>
+
     <menu-bar layout="horizontal" margin="10">
 
     </menu-bar>
